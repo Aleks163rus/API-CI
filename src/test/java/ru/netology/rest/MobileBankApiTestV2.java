@@ -2,8 +2,9 @@ package ru.netology.rest;
 
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
-
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static io.restassured.RestAssured.given;
+import static io.restassured.http.ContentType.JSON;
 
 class MobileBankApiTestV2 {
     @Test
@@ -20,7 +21,7 @@ class MobileBankApiTestV2 {
                 .statusCode(200)
                 .header("Content-Type", "application/json; charset=UTF-8")
                 // специализированные проверки - лучше
-                .contentType(ContentType.JSON)
-        ;
+                .contentType(JSON)
+        .body(matchesJsonSchemaInClasspath("accounts.schema.json"));
     }
 }
